@@ -1,0 +1,81 @@
+<div class="scrollable">
+    <div class="scrollable-content">
+        <section class="section container-fluid">
+            <h4 class="text-success">Your Orders</h4>
+
+            <table class="table table-borderless">
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+                <tr ng-repeat="order in orders">
+                    <td>{{order.id}} </td>
+                    <td ng-click="showDetails(order.id)">{{order.orderdate | date}} </td>
+                    <td>{{order.total | currency}} </td>
+                    <td>{{order.statusdetails.statusname}} </td>
+                </tr>
+            </table>
+
+            <div ng-repeat="order in orders">
+
+                <div ng-show="order.id == selectedOrder">
+                    <div class="well well-sm">
+                        Order Id : {{order.id}}
+                    </div>
+
+                    <table class="table table-borderless">
+                        <tr>
+                            <th></th>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>QTY</th>
+                        </tr>
+                        <tr ng-repeat="item in myOrder.details">
+                            <td><img ng-src="{{item.product.image}}" height="40" width="60" alt="Description" /></td>
+                            <td> {{item.product.name}} <small><p class="text-success"><u>{{item.extraname}}</u></p></small>
+                                <small><p>Orders: <span class="text-info">{{item.comment}}</span></p></small></td>
+                            <td> {{item.price}} </td>
+                            <td> {{item.qty}} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right ">
+                                Subtotal:
+                            </td>
+                            <td colspan="2" align="right ">
+                                {{order.subtotal | currency}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right ">
+                                <p class="text-danger">Discount: </p>
+                            </td>
+                            <td colspan="2" align="right ">
+                                <p class="text-danger"> -{{order.discount | currency }} </p>
+                            </td>
+                        </tr>
+                        <tr ng-if="order.delivered == 1">
+                            <td colspan="2" align="right ">
+                                <p class="text-success">Delivery charge:</p>
+                            </td>
+                            <td td colspan="2" align="right ">
+                                <p class="text-success">+$5.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <strong>Total: </strong>
+                            </td>
+                            <td colspan="2" align="right">
+                                <strong>{{order.total | currency}}</strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+</div>

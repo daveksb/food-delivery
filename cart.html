@@ -1,0 +1,88 @@
+<div class="scrollable">
+    <div class="scrollable-content">
+        <section class="section container-fluid">
+            <!-- 
+            <div ng-show="$storage.cartItems.length" class="btn-group" role="group">
+                <button type="button" ng-class="{true: 'btn btn-default', false: 'btn btn-primary'}[$storage.delivered]" ng-click="toggleDelivery()">
+                    <i class="fa fa-shopping-basket" aria-hidden="true"> Pick up</i>
+                </button>
+                <button type="button" ng-class="{true: 'btn btn-primary', false: 'btn btn-default'}[$storage.delivered]" ng-click="toggleDelivery()">
+                    <i class="fa fa-car" aria-hidden="true"> Delivery</i>
+                </button>
+            </div>
+ -->
+
+            <div ng-show="$storage.cartItems.length" class="btn-group" role="group">
+                <button type="button" ng-click="isPickupChecked()" ng-class="{true: 'btn btn-primary', false: 'btn btn-default'}[$storage.isPickup]">
+                    <input type="checkbox" ng-model="$storage.isPickup"> <i class="fa fa-shopping-basket" aria-hidden="true"> Pick up</i>
+                </button>
+                <button type="button" ng-click="isDeliverChecked()" ng-class="{true: 'btn btn-primary', false: 'btn btn-default'}[$storage.isDeliver]">
+                    <input type="checkbox" ng-model="$storage.isDeliver"> <i class="fa fa-car" aria-hidden="true"> Delivery</i>
+                </button>
+            </div>
+
+            <br>
+            <br>
+            <div>
+                <table ng-show="$storage.cartItems.length" class="table table-borderless">
+                    <tr>
+                        <th>Item</th>
+                        <th>&nbsp;</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                    </tr>
+                    <tr ng-repeat="item in $storage.cartItems">
+                        <td colspan="2"> {{item.name}} <small class="text-success"><u>{{item.extraname}}</u></small>
+                            <p><small ng-click="toggleSpecialOrder($index,orderDetails[$index])"><u>Special orders :</u> <span class="text-info"> {{$storage.cartItems[$index].comment}} </span></small></p>
+                            <span ng-show="temp[$index]">
+                                <input type="text" class="form-control" ng-model="orderDetails[$index]">
+                                <button ng-click="addSpecialOrder($index,orderDetails[$index])">OK</button>
+                            </span>
+                        </td>
+                        <td> {{item.price | currency}} </td>
+                        <td>
+                            <i ng-click="decrease(item)" class="fa fa-1x fa-minus-square-o"></i> {{item.qty}}
+                            <i ng-click="increase(item)" class="fa fa-1x fa-plus-square-o"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right ">
+                            Subtotal:
+                        </td>
+                        <td colspan="2" align="right ">
+                            {{ $storage.cartSum | currency}}
+                        </td>
+                    </tr>
+
+                    <tr ng-if="$storage.delivered == 1 && $storage.deliverySelected">
+                        <td colspan="2" align="right ">
+                            <p class="text-success">Delivery Charge:</p>
+                        </td>
+                        <td td colspan="2" align="right ">
+                            <p class="text-success">+$5.00</p>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <div align="right">
+                    <button ng-show="$storage.cartItems.length" type="button" class="btn btn-default" ng-click="clearCart()">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i><small> Clear Cart </small>
+                    </button>
+                    <span ng-if="itemSum()">
+                        <a ui-sref="home">
+                            <button class="btn btn-default ">
+                                <i class="fa fa-backward" aria-hidden="true"></i> Back
+                                </button>
+                        </a>
+                        <a ui-sref="checkout">
+                        <button ng-disabled="!$storage.deliverySelected" class="btn btn-default"><i class="fa fa-forward" aria-hidden="true"></i> Next
+                        </button>
+                        </a>
+                    </span>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>

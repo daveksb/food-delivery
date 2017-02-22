@@ -1,0 +1,49 @@
+<div class="scrollable">
+    <div class="scrollable-content">
+        <section class="section container-fluid">
+
+            <h4 class="text-success">Your contact info.</h4>
+
+            <form name="myForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input ng-model="$storage.dbCustomer.name" type="text" class="form-control" required placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="Phone">Phone</label>
+                    <input ng-model="$storage.dbCustomer.phone" type="text" class="form-control" required placeholder="Phone">
+                </div>
+                <div class="form-group" ng-if="!$storage.isPickup">
+                    <label for="name">Address</label>
+                    <input ng-model="$storage.dbCustomer.address" type="text" class="form-control" required placeholder="Street address, P.O. box, company name, c/o Apartment, suite , unit, building, floor, etc.">
+                </div>
+                <div class="form-group" ng-if="!$storage.isPickup">
+                    <label for="">City / Town</label>
+                    <input ng-model="$storage.dbCustomer.city" type="text" class="form-control" required placeholder="City / Town">
+                </div>
+                <div class="form-group" ng-if="!$storage.isPickup">
+                    <label for="">Postal Code</label>
+                    <input ng-model="$storage.dbCustomer.postalcode" type="text" class="form-control" placeholder="Postal Code">
+                </div>
+                <div ng-show="profileSubmit" class="alert alert-success" role="alert">Your profiles was updated ..</div>
+                <div align="right">
+                    <button ng-disabled="myForm.$invalid" ng-click="editProfile()" type="submit" class="btn btn-default"><i class="fa fa-check-square-o" aria-hidden="true"></i> Submit
+                    </button>
+
+                    <span ng-if="$storage.paymentType == 1 && $storage.deliverySelected && $storage.paymentSelected ">
+                        <button ng-click="postOrder()" ng-disabled="myForm.$invalid" type="submit" class="btn btn-default">
+                            Place Your Order
+                        </button>
+                    </span>
+
+                    <span ng-if="$storage.paymentType == 0 && $storage.deliverySelected  && $storage.paymentSelected">
+                    <button ng-disabled="myForm.$invalid" ng-click="postOrder()" stripe-checkout="doCheckout" data-key="pk_test_zjMnvzxptUvsBn3oOlW0WZtM" data-name="Siamthaicuisine" data-amount="{{amountInCent}}" data-currency="AUD" data-allow-remember-me="false" data-description="Order ID : {{$storage.orderId}}" class="btn btn-default" data-email="{{$storage.auth0Customer.email}}">
+                        Check Out with Card
+                    </button>
+                    </span>
+
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

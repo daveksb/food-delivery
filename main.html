@@ -1,0 +1,32 @@
+<div class="scrollable">
+    <div class="scrollable-content">
+        <section class="section container-fluid">
+
+            <h4 class="text-success">Category: {{userCat.name}}</h4>
+            <!-- <div ng-repeat="product in products | filter: { category : userCat.id }" ng-init="myindex = $index"> -->
+            <div ng-repeat="product in products" ng-init="myindex = $index">
+
+                <div ng-show="products[myindex].showAlert" class="alert alert-success" role="alert">{{ product.name }} was added to Cart ..</div>
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h5 class="pull-right">{{product.price + product.extraprice | currency}}</h5>
+                        <img ng-click="" ng-src="{{product.image}}" height="60" width="70" class="pull-left" />
+                        <h4><a>{{product.name}} <span class="text-success"> {{product.extraname}} </span></a></h4>
+                        <div class="pull-right"><i ng-click="addItem(product,myindex)" class="fa fa-2x fa-plus-square-o" aria-hidden="true"></i></div>
+                        <p>{{product.description}}</p>
+                        <div ng-if="product.extras.length">
+                            <small> Options: </small>
+                            <select ng-model="data[myindex]" ng-change="updateMenu(myindex,data[myindex])">
+                                <option value=''>-Select-</option>
+                                <option ng-repeat="extra in product.extras" value="{{$index}}">
+                                    {{extra.name}} + ${{extra.pricediff}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>

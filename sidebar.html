@@ -1,0 +1,19 @@
+<div class="scrollable">
+    <h2 class="scrollable-header app-name">Quick Menu</h2>
+    <div class="scrollable-content">
+        <div class="list-group" ui-turn-off='uiSidebarLeft'>
+            <a class="list-group-item" ui-sref="home">Home <i class="fa fa-chevron-right pull-right"></i></a>
+            <a ng-if="itemSum()" class="list-group-item" ui-sref="cart">Your Cart<i class="fa fa-chevron-right pull-right"></i></a>
+            <a ng-if="!isAuthenticated" class="list-group-item" ng-click="logIn()">Log In<i class="fa fa-chevron-right pull-right"></i></a>
+            <a ng-if="isAuthenticated" class="list-group-item" ui-sref="profile">Your Profiles <i class="fa fa-chevron-right pull-right"></i></a>
+            <a ng-if="isAuthenticated" class="list-group-item" ui-sref="cusorder">Your Orders<i class="fa fa-chevron-right pull-right"></i></a>
+            <a ng-if="isAuthenticated" class="list-group-item" ng-click="logOut()">Sign Out<i class="fa fa-chevron-right pull-right"></i></a>
+        </div>
+        <div class="list-group" ui-turn-off='uiSidebarLeft'>
+            <a ng-click="catSelect(category)" ng-repeat="category in categories" ui-sref="home" class="list-group-item">
+            {{category.name}}
+            <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+        </div>
+    </div>
+</div>

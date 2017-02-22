@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-jwt": "0.0.9",
+    "angular-resource": "^1.5.8",
+    "angular-stripe-checkout": "^4.0.2",
+    "auth0-angular": "^4.2.3",
+    "auth0-lock": "^10.0.1",
+    "mobile-angular-ui": "^1.2.1",
+    "ng-admin": "^1.0.0-alpha2",
+    "ngstorage": "^0.3.10"
+  }
+}

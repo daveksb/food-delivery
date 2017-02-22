@@ -1,0 +1,93 @@
+<div class="scrollable">
+    <div class="scrollable-content">
+        <section class="section container-fluid">
+
+            <small ng-show="$storage.cartItems.length">Pay With</small>
+            <div ng-show="$storage.cartItems.length" class="btn-group" role="group">
+                <button type="button" ng-class="{true: 'btn btn-primary', false: 'btn btn-default'}[$storage.payByCash]" ng-click="payByCash()">
+                    <input type="checkbox" ng-model="$storage.payByCash"> <i class="fa fa-money" aria-hidden="true"></i> Cash
+                </button>
+                <button type="button" ng-class="{true: 'btn btn-primary', false: 'btn btn-default'}[$storage.payByCard]" ng-click="payByCard()">
+                    <input type="checkbox" ng-model="$storage.payByCard"> <i class="fa fa-credit-card" aria-hidden="true"></i> Credit Card
+                </button>
+            </div>
+            <br>
+            <br>
+            <div>
+                <table ng-show="$storage.cartItems.length" class="table table-borderless">
+                    <tr>
+                        <th></th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                    </tr>
+                    <tr ng-repeat="item in $storage.cartItems">
+                        <td><img ng-src="{{item.image}}" height="40" width="60" alt="Description" /></td>
+                        <td> {{item.name}}
+                            <small class="text-success"><u>{{item.extraname}}</u></small>
+                            <small ng-show="item.comment"><p>Special orders: <span class="text-info">{{item.comment}}</span></p></small>
+                        </td>
+                        <td> {{item.price | currency}} </td>
+                        <td> {{item.qty}} </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right ">
+                            SubTotal:
+                        </td>
+                        <td colspan="2" align="right ">
+                            {{ $storage.cartSum | currency}}
+                        </td>
+                    </tr>
+                    <tr ng-if="$storage.paymentSelected">
+                        <td colspan="2" align="right ">
+                            <p class="text-danger">{{$storage.discountRate}}% Discount: </p>
+                        </td>
+                        <td colspan="2" align="right ">
+                            <p class="text-danger"> -{{ $storage.cartDiscount | currency }} </p>
+                        </td>
+                    </tr>
+                    <tr ng-if="$storage.delivered == 1 ">
+                        <td colspan="2" align="right ">
+                            <p class="text-success">Delivery Charge:</p>
+                        </td>
+                        <td td colspan="2" align="right ">
+                            <p class="text-success">+$5.00</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right ">
+                            <p class="text-info">Total:</p>
+                        </td>
+                        <td colspan="2" align="right">
+                            <strong><p class="text-info"> {{ $storage.cartTotal | currency }}</p></strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div align="right">
+                <a ui-sref="cart">
+                    <button class="btn btn-default">
+                        Back
+                    </button>
+                </a>
+
+                <!--                 <span ng-if="$storage.paymentType == 1">
+                    <button class="btn btn-default" ng-click="postOrder()">
+                        Submit Your Order
+                    </button>
+                </span>
+
+                <span ng-if="$storage.paymentType == 0">
+                    <button ng-click="postOrder()" stripe-checkout="doCheckout" data-key="pk_test_q00fbQqMKKwspAE5ZHbmazlC" data-name="Siam Thai Cuisine" data-amount="{{amountInCent}}" data-currency="AUD" data-allow-remember-me="false" data-description="Order ID : {{$storage.orderId}}" class="btn btn-default" data-email="{{$storage.auth0Customer.email}}">
+                        Check Out with Card
+                    </button>
+                </span>
+               -->
+                <button class="btn btn-default" ng-click="logIn()" ng-disabled="!$storage.paymentSelected">
+                    Check Out
+                </button>
+            </div>
+        </section>
+    </div>
+</div>
